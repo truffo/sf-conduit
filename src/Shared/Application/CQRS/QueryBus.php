@@ -6,5 +6,8 @@ namespace App\Shared\Application\CQRS;
 
 interface QueryBus
 {
+    /**
+     * @return mixed
+     */
     public function handle(Query $query);
 }

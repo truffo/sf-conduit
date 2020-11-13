@@ -30,7 +30,7 @@ class Article
     private int $favoritesCount;
 
     public function __construct(
-        ArticleId $articleId,
+        ArticleId $id,
         string $slug,
         string $title,
         string $description,
@@ -40,7 +40,7 @@ class Article
         int $favoritesCount
     ) {
         $now = new DateTimeImmutable();
-        $this->id = $articleId;
+        $this->id = $id;
         $this->slug = $slug;
         $this->title = $title;
         $this->description = $description;
@@ -50,17 +50,16 @@ class Article
         $this->updatedAt = $now;
         $this->favorited = $favorited;
         $this->favoritesCount = $favoritesCount;
-        $this->articleId = $articleId;
     }
 
     public static function create(
-        ArticleId $articleId,
+        ArticleId $id,
         string $title,
         string $body,
         string $description,
         array $tagList
     ): self {
-        return new self($articleId, $title, $title, $description, $body, $tagList, false, 0);
+        return new self($id, $title, $title, $description, $body, $tagList, false, 0);
     }
 
     public function getId(): ArticleId

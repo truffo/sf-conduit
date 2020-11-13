@@ -15,8 +15,8 @@ final class MessengerCommandBus implements CommandBus
         $this->commandBus = $commandBus;
     }
 
-    public function dispatch(Command $command)
+    public function dispatch(Command $command): void
     {
-        return $this->commandBus->dispatch($command);
+        $this->commandBus->dispatch($command);
     }
 }

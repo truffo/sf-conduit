@@ -6,5 +6,5 @@ namespace App\Shared\Application\CQRS;
 
 interface CommandBus
 {
-    public function dispatch(Command $command);
+    public function dispatch(Command $command): void;
 }

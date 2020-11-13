@@ -12,5 +12,5 @@ interface ArticleRepositoryInterface
 
     public function findByTitle(string $title): Article;
 
-    public function save(Article $article);
+    public function save(Article $article): void;
 }

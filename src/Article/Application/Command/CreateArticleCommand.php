@@ -14,8 +14,12 @@ final class CreateArticleCommand implements Command
 
     private string $body;
 
+    /** @var array<string> */
     private array $tags;
 
+    /**
+     * @param array<string> $tags
+     */
     private function __construct(string $title, string $description, string $body, array $tags)
     {
         $this->title = $title;
@@ -24,6 +28,9 @@ final class CreateArticleCommand implements Command
         $this->tags = $tags;
     }
 
+    /**
+     * @param array<string> $tags
+     */
     public static function create(string $title, string $description, string $body, array $tags): self
     {
         return new static($title, $description, $body, $tags);
@@ -44,6 +51,9 @@ final class CreateArticleCommand implements Command
         return $this->body;
     }
 
+    /**
+     * @return array<string>
+     */
     public function getTags(): array
     {
         return $this->tags;

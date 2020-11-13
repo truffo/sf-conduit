@@ -38,33 +38,7 @@ class ArticleController extends AbstractController
         $createArticleCommand = CreateArticleCommand::create('title', 'description', 'body', ['tag1', 'tag2']);
 
         $this->commandBus->dispatch($createArticleCommand);
-        // $this->queryBus->handle();
 
         return $this->json([]);
-
-        return $this->json([
-            'articles' => [
-                0 => [
-                    'slug' => 'string',
-                    'title' => 'string',
-                    'description' => 'string',
-                    'body' => 'string',
-                    'tagList' => [
-                        0 => 'string',
-                    ],
-                    'createdAt' => '2020-11-05T22:27:36.320Z',
-                    'updatedAt' => '2020-11-05T22:27:36.320Z',
-                    'favorited' => true,
-                    'favoritesCount' => 0,
-                    'author' => [
-                        'username' => 'string',
-                        'bio' => 'string',
-                        'image' => 'string',
-                        'following' => true,
-                    ],
-                ],
-            ],
-            'articlesCount' => 0,
-        ]);
     }
 }
