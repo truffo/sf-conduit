@@ -8,26 +8,15 @@ use App\Article\Application\ViewModel\Article\ArticleViewModel;
 use App\Article\Domain\ArticleRepositoryInterface;
 use App\Shared\Application\CQRS\CommandBus;
 use App\Shared\Application\CQRS\QueryBus;
+use App\Tests\Common\ApplicationTestCase;
 use App\Tests\ObjectMother\ArticleMother;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class GetArticleQueryTest extends WebTestCase
+class GetArticleQueryTest extends ApplicationTestCase
 {
-    private CommandBus $commandBus;
-    private QueryBus $queryBus;
-
-    protected function setUp(): void
-    {
-        self::bootKernel();
-
-        $this->commandBus = self::$container->get(CommandBus::class);
-        $this->queryBus = self::$container->get(QueryBus::class);
-    }
 
     public function testGetArticle()
     {
-
-
         /** @var ArticleRepositoryInterface $repository */
         $repository = self::$container->get(ArticleRepositoryInterface::class);
         $repository->save(ArticleMother::anyWithUuid());

@@ -30,11 +30,10 @@ class ArticleRepositoryTest extends WebTestCase
 
     public function testSave()
     {
-        $uuid = '23d35201-3abb-442c-a434-a88c622554d4';
-        $article = ArticleMother::anyWithUuid($uuid);
+        $article = ArticleMother::anyWithUuid(ArticleMother::VALID_UUID);
         foreach ($this->articleRepositoryGenerator() as $repo) {
             $repo->save($article);
-            $result = $repo->findByUuid($uuid);
+            $result = $repo->findByUuid(ArticleMother::VALID_UUID);
             $this->assertSame($article, $result);
         }
     }

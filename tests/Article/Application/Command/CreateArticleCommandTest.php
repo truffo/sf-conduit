@@ -6,21 +6,11 @@ use App\Article\Application\Command\CreateArticleCommand;
 use App\Article\Domain\ArticleRepositoryInterface;
 use App\Shared\Application\CQRS\CommandBus;
 use App\Shared\Application\CQRS\QueryBus;
+use App\Tests\Common\ApplicationTestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class CreateArticleCommandTest extends WebTestCase
+class CreateArticleCommandTest extends ApplicationTestCase
 {
-    private CommandBus $commandBus;
-    private QueryBus $queryBus;
-
-    protected function setUp(): void
-    {
-        self::bootKernel();
-
-        $this->commandBus = self::$container->get(CommandBus::class);
-        $this->queryBus = self::$container->get(QueryBus::class);
-    }
-
     public function testCreateArticle()
     {
         /** @var ArticleRepositoryInterface $repository */
