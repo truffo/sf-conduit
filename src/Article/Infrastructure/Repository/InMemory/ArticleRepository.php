@@ -23,9 +23,10 @@ final class ArticleRepository implements ArticleRepositoryInterface
     public function findByTitle(string $title): Article
     {
         $result = $this->data->filter(fn (Article $article) => $article->getTitle() === $title);
-        if ($result->count() === 0) {
+        if (0 === $result->count()) {
             throw new InvalidArgumentException();
         }
+
         return $result->first();
     }
 
@@ -42,9 +43,20 @@ final class ArticleRepository implements ArticleRepositoryInterface
     public function findByUuid(string $uuid): Article
     {
         $result = $this->data->filter(fn (Article $article) => $article->getId()->value() === $uuid);
-        if ($result->count() === 0) {
+        if (0 === $result->count()) {
             throw new InvalidArgumentException();
         }
+
+        return $result->first();
+    }
+
+    public function findBySlug(string $slug): Article
+    {
+        $result = $this->data->filter(fn (Article $article) => $article->getSlug() === $slug);
+        if (0 === $result->count()) {
+            throw new InvalidArgumentException();
+        }
+
         return $result->first();
     }
 }

@@ -9,7 +9,9 @@ use App\Article\Domain\ArticleId;
 
 class ArticleMother
 {
-    public static function anyWithUuid(string $uuid): Article
+    public const VALID_UUID = '23d35201-3abb-442c-a434-a88c622554d4';
+
+    public static function anyWithUuid(string $uuid = self::VALID_UUID): Article
     {
         return new Article(
             ArticleId::fromString($uuid),

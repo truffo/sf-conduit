@@ -52,22 +52,22 @@ final class ArticleViewModel implements ViewModel
     public function value(): array
     {
         return [
-            'slug' => 'string',
-            'title' => 'string',
-            'description' => 'string',
-            'body' => 'string',
-            'tagList' => [
-                0 => 'string',
-            ],
-            'createdAt' => '2020-11-05T22:27:36.320Z',
-            'updatedAt' => '2020-11-05T22:27:36.320Z',
-            'favorited' => true,
-            'favoritesCount' => 0,
-            'author' => [
-                'username' => 'string',
-                'bio' => 'string',
-                'image' => 'string',
-                'following' => true,
+            'article' => [
+                'slug' => $this->slug,
+                'title' => $this->title,
+                'description' => $this->description,
+                'body' => $this->body,
+                'tagList' => [...$this->tagList],
+                'createdAt' => $this->createdAt,
+                'updatedAt' => $this->updatedAt,
+                'favorited' => $this->favorited,
+                'favoritesCount' => $this->favoritesCount,
+                'author' => [
+                    'username' => 'string',
+                    'bio' => 'string',
+                    'image' => 'string',
+                    'following' => true,
+                ],
             ],
         ];
     }

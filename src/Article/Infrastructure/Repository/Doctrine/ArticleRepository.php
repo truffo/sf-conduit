@@ -36,4 +36,9 @@ final class ArticleRepository extends ServiceEntityRepository implements Article
     {
         // TODO: Implement findByUuid() method.
     }
+
+    public function findBySlug(string $getSlug): Article
+    {
+        // TODO: Implement findBySlug() method.
+    }
 }

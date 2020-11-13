@@ -8,9 +8,11 @@ interface ArticleRepositoryInterface
 {
     public function nextId(): ArticleId;
 
-    public function findByUuid(string $title): Article;
+    public function findByUuid(string $uuid): Article;
 
     public function findByTitle(string $title): Article;
 
     public function save(Article $article): void;
+
+    public function findBySlug(string $getSlug): Article;
 }
