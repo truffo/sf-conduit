@@ -9,6 +9,7 @@ use App\Article\Domain\ArticleId;
 use App\Article\Domain\ArticleRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Ramsey\Uuid\Uuid;
 
 final class ArticleRepository extends ServiceEntityRepository implements ArticleRepositoryInterface
 {
@@ -17,28 +18,35 @@ final class ArticleRepository extends ServiceEntityRepository implements Article
         parent::__construct($registry, Article::class);
     }
 
-    public function findByTitle(string $title): Article
-    {
-        // TODO: Implement findByTitle() method.
-    }
-
     public function save(Article $article): void
     {
-        // TODO: Implement save() method.
+        $this->_em->persist($article);
+        $this->_em->flush();
+    }
+
+    public function findByTitle(string $title): Article
+    {
+        return $this->findOneBy([
+            'title' => $title,
+        ]);
     }
 
     public function nextId(): ArticleId
     {
-        // TODO: Implement nextId() method.
+        return ArticleId::fromString(Uuid::uuid4()->toString());
     }
 
-    public function findByUuid(string $title): Article
+    public function findByUuid(string $uuid): Article
     {
-        // TODO: Implement findByUuid() method.
+        return $this->findOneBy([
+            'id' => $uuid,
+        ]);
     }
 
-    public function findBySlug(string $getSlug): Article
+    public function findBySlug(string $slug): Article
     {
-        // TODO: Implement findBySlug() method.
+        return $this->findOneBy([
+            'slug' => $slug,
+        ]);
     }
 }

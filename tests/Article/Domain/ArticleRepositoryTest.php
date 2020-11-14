@@ -8,6 +8,7 @@ use App\Article\Domain\ArticleRepositoryInterface;
 use App\Article\Infrastructure\Repository\InMemory;
 use App\Article\Infrastructure\Repository\Doctrine;
 use App\Tests\ObjectMother\ArticleMother;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Faker\Generator;
@@ -20,7 +21,14 @@ class ArticleRepositoryTest extends WebTestCase
     protected function setUp(): void
     {
         self::bootKernel();
+        $this->truncateEntities();
    }
+
+    private function truncateEntities()
+    {
+        $purger = new ORMPurger(self::$container->get(EntityManagerInterface::class));
+        $purger->purge();
+    }
 
     /**
      * @return ArticleRepositoryInterface[]
@@ -29,7 +37,7 @@ class ArticleRepositoryTest extends WebTestCase
     {
         $registry = self::$container->get(ManagerRegistry::class);
         yield new InMemory\ArticleRepository();
-        // yield new Doctrine\ArticleRepository($registry);
+        yield new Doctrine\ArticleRepository($registry);
     }
 
     public function testSave()
@@ -42,6 +50,23 @@ class ArticleRepositoryTest extends WebTestCase
         }
     }
 
+    public function testNextId()
+    {
+        foreach ($this->articleRepositoryGenerator() as $repo) {
+            $this->assert$repo->nextId()
+        }
+    }
+
+    public function testFindByTitle()
+    {
+        $article = ArticleMother::anyWithUuid(ArticleMother::VALID_UUID);
+        foreach ($this->articleRepositoryGenerator() as $repo) {
+            $repo->save($article);
+            $result = $repo->findByTitle(ArticleMother::TITLE);
+            $this->assertSame($article, $result);
+        }
+    }
+
     public function testFindByTitleNonExistantTitle()
     {
         foreach ($this->articleRepositoryGenerator() as $repo) {
@@ -50,8 +75,17 @@ class ArticleRepositoryTest extends WebTestCase
         }
     }
 
+    public function testFindBySlug()
+    {
+        $article = ArticleMother::anyWithUuid(ArticleMother::VALID_UUID);
+        foreach ($this->articleRepositoryGenerator() as $repo) {
+            $repo->save($article);
+            $result = $repo->findBySlug('article-1');
+            $this->assertSame($article, $result);
+        }
+    }
 
-    public function testFindByTitleNonExistantSlug()
+    public function testFindBySlugNonExistantSlug()
     {
         foreach ($this->articleRepositoryGenerator() as $repo) {
             $this->expectException(\InvalidArgumentException::class);
@@ -59,8 +93,17 @@ class ArticleRepositoryTest extends WebTestCase
         }
     }
 
+    public function testFindByUuid()
+    {
+        $article = ArticleMother::anyWithUuid(ArticleMother::VALID_UUID);
+        foreach ($this->articleRepositoryGenerator() as $repo) {
+            $repo->save($article);
+            $result = $repo->findByUuid(ArticleMother::VALID_UUID);
+            $this->assertSame($article, $result);
+        }
+    }
 
-    public function testFindByTitleNonExistantUuid()
+    public function testFindByUuidNonExistantUuid()
     {
         foreach ($this->articleRepositoryGenerator() as $repo) {
             $this->expectException(\InvalidArgumentException::class);

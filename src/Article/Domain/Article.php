@@ -30,7 +30,7 @@ class Article
 
     private int $favoritesCount;
 
-    public final function __construct(
+    final public function __construct(
         ArticleId $id,
         string $slug,
         string $title,
@@ -60,16 +60,7 @@ class Article
         string $description = '',
         array $tagList = []
     ): self {
-        return new self(
-            $id,
-            (new Slugify())->slugify($title),
-            $title,
-            $description,
-            $body,
-            $tagList,
-            false,
-            0
-        );
+        return new self($id, (new Slugify())->slugify($title), $title, $description, $body, $tagList, false, 0);
     }
 
     public function getId(): ArticleId
