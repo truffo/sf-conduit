@@ -1,6 +1,4 @@
 services:
-    App\Article\Application\Command\CreateArticle\CreateArticleHandler:
-        public: true
     App\Article\Domain\ArticleRepositoryInterface:
         alias: 'App\Article\Infrastructure\Repository\InMemory\ArticleRepository'
         public: true

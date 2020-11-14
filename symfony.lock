@@ -8,6 +8,9 @@
     "brick/math": {
         "version": "0.9.1"
     },
+    "cocur/slugify": {
+        "version": "v4.0.0"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99"
     },
@@ -377,6 +380,12 @@
     "symfony/process": {
         "version": "v5.1.8"
     },
+    "symfony/property-access": {
+        "version": "v5.1.8"
+    },
+    "symfony/property-info": {
+        "version": "v5.1.8"
+    },
     "symfony/redis-messenger": {
         "version": "v5.1.8"
     },
@@ -393,6 +402,30 @@
             "config/packages/routing.yaml",
             "config/routes.yaml"
         ]
+    },
+    "symfony/security-bundle": {
+        "version": "5.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.1",
+            "ref": "0a4bae19389d3b9cba1ca0102e3b2bccea724603"
+        },
+        "files": [
+            "config/packages/security.yaml"
+        ]
+    },
+    "symfony/security-core": {
+        "version": "v5.1.8"
+    },
+    "symfony/security-csrf": {
+        "version": "v5.1.8"
+    },
+    "symfony/security-guard": {
+        "version": "v5.1.8"
+    },
+    "symfony/security-http": {
+        "version": "v5.1.8"
     },
     "symfony/service-contracts": {
         "version": "v2.2.0"

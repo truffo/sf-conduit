@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Article\Presentation;
+namespace App\Article\Presentation\Api;
 
 use App\Article\Application\Command\CreateArticleCommand;
 use App\Article\Domain\ArticleRepositoryInterface;

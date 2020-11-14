@@ -36,3 +36,4 @@ services:
         App\Shared\Application\CQRS\QueryHandler:
             tags:
                 - { name: messenger.message_handler, bus: query.bus }
+    App\Article\Domain\ArticleRepositoryInterface: '@App\Article\Infrastructure\Repository\Doctrine\ArticleRepository'

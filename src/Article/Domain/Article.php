@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Article\Domain;
 
+use Cocur\Slugify\Slugify;
 use DateTimeImmutable;
 use DateTimeInterface;
 
@@ -29,7 +30,7 @@ class Article
 
     private int $favoritesCount;
 
-    public function __construct(
+    public final function __construct(
         ArticleId $id,
         string $slug,
         string $title,
@@ -56,10 +57,19 @@ class Article
         ArticleId $id,
         string $title,
         string $body,
-        string $description,
-        array $tagList
+        string $description = '',
+        array $tagList = []
     ): self {
-        return new self($id, $title, $title, $description, $body, $tagList, false, 0);
+        return new self(
+            $id,
+            (new Slugify())->slugify($title),
+            $title,
+            $description,
+            $body,
+            $tagList,
+            false,
+            0
+        );
     }
 
     public function getId(): ArticleId

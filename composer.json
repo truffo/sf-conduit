@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "beberlei/assert": "^3.2",
+        "cocur/slugify": "^4.0",
         "composer/package-versions-deprecated": "^1.11",
         "doctrine/annotations": "^1.11",
         "doctrine/doctrine-bundle": "^2.2",
