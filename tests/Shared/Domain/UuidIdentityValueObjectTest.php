@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\Shared\Domain;
-
 
 use App\Shared\Domain\ValueObject\UuidIdentityValueObject;
 use Faker\Factory;

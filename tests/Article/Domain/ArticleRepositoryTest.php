@@ -2,27 +2,24 @@
 
 namespace App\Tests\Article\Domain;
 
-use App\Article\Domain\Article;
-use App\Article\Domain\ArticleId;
 use App\Article\Domain\ArticleRepositoryInterface;
-use App\Article\Infrastructure\Repository\InMemory;
 use App\Article\Infrastructure\Repository\Doctrine;
+use App\Article\Infrastructure\Repository\InMemory;
 use App\Tests\ObjectMother\ArticleMother;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
-use Faker\Generator;
+use Ramsey\Uuid\Rfc4122\Validator;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ArticleRepositoryTest extends WebTestCase
 {
-
     protected function setUp(): void
     {
         self::bootKernel();
         $this->truncateEntities();
-   }
+    }
 
     private function truncateEntities()
     {
@@ -53,7 +50,7 @@ class ArticleRepositoryTest extends WebTestCase
     public function testNextId()
     {
         foreach ($this->articleRepositoryGenerator() as $repo) {
-            $this->assert$repo->nextId()
+            $this->assertTrue((new Validator())->validate($repo->nextId()->value()));
         }
     }
 

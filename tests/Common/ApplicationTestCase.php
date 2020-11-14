@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Common;
 
 use App\Shared\Application\CQRS\CommandBus;

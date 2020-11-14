@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\ObjectMother;
-
 
 use App\Article\Domain\Article;
 use App\Article\Domain\ArticleId;
