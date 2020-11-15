@@ -14,6 +14,8 @@
         "doctrine/doctrine-bundle": "^2.2",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.7",
+        "fakerphp/faker": "^1.10",
+        "ramsey/uuid": "^4.1",
         "stof/doctrine-extensions-bundle": "^1.5",
         "symfony/console": "5.1.*",
         "symfony/dotenv": "5.1.*",
@@ -22,6 +24,7 @@
         "symfony/framework-bundle": "5.1.*",
         "symfony/maker-bundle": "^1.23",
         "symfony/messenger": "5.1.*",
+        "symfony/security-bundle": "5.1.*",
         "symfony/validator": "5.1.*",
         "symfony/yaml": "5.1.*"
     },
