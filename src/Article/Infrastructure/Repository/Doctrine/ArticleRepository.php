@@ -9,6 +9,7 @@ use App\Article\Domain\ArticleId;
 use App\Article\Domain\ArticleRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use InvalidArgumentException;
 use Ramsey\Uuid\Uuid;
 
 final class ArticleRepository extends ServiceEntityRepository implements ArticleRepositoryInterface
@@ -30,8 +31,9 @@ final class ArticleRepository extends ServiceEntityRepository implements Article
             'title' => $title,
         ]);
         if (null === $result) {
-            throw new \InvalidArgumentException('Unknow article');
+            throw new InvalidArgumentException('Unknow article');
         }
+
         return $result;
     }
 
@@ -42,12 +44,12 @@ final class ArticleRepository extends ServiceEntityRepository implements Article
 
     public function findByUuid(string $uuid): Article
     {
-        $result =  $this->findOneBy([
+        $result = $this->findOneBy([
             'id' => $uuid,
         ]);
 
         if (null === $result) {
-            throw new \InvalidArgumentException('Unknow article');
+            throw new InvalidArgumentException('Unknow article');
         }
 
         return $result;
@@ -60,7 +62,7 @@ final class ArticleRepository extends ServiceEntityRepository implements Article
         ]);
 
         if (null === $result) {
-            throw new \InvalidArgumentException('Unknow article');
+            throw new InvalidArgumentException('Unknow article');
         }
 
         return $result;

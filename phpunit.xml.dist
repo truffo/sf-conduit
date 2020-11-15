@@ -34,6 +34,7 @@
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
     </listeners>
 
+    <!--
     <logging>
         <log type="coverage-html" target="./build/report" lowUpperBound="35"
              highLowerBound="70"/>
@@ -42,4 +43,5 @@
         <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
         <log type="junit" target="./build/logfile.xml" />
     </logging>
+    -->
 </phpunit>

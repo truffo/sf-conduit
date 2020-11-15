@@ -1,5 +1,9 @@
-controllers:
+article:
     resource: ../../src/Article/Presentation/
+    type: annotation
+
+user:
+    resource: ../../src/User/Presentation/
     type: annotation
 
 kernel:
