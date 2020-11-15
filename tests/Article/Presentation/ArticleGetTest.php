@@ -1,21 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Article\Presentation;
 
 use Helmich\JsonAssert\JsonAssertions;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ArticleGetTest extends WebTestCase
+/**
+ * @internal
+ * @coversNothing
+ */
+final class ArticleGetTest extends WebTestCase
 {
     use JsonAssertions;
 
-    public function testArticleGetCodeAndFormat()
+    public function testArticleGetCodeAndFormat(): void
     {
         $client = static::createClient();
         $client->request('GET', '/articles');
         $response = $client->getResponse();
 
         $this->assertResponseIsSuccessful();
-        $this->assertJson($response->getContent());
+        static::assertJson($response->getContent());
     }
 }

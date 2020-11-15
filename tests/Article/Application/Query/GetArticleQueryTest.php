@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Article\Application\Query;
 
 use App\Article\Application\Query\GetArticleQuery;
@@ -8,9 +10,13 @@ use App\Article\Domain\ArticleRepositoryInterface;
 use App\Tests\Common\ApplicationTestCase;
 use App\Tests\ObjectMother\ArticleMother;
 
-class GetArticleQueryTest extends ApplicationTestCase
+/**
+ * @internal
+ * @coversNothing
+ */
+final class GetArticleQueryTest extends ApplicationTestCase
 {
-    public function testGetArticle()
+    public function testGetArticle(): void
     {
         /** @var ArticleRepositoryInterface $repository */
         $repository = self::$container->get(ArticleRepositoryInterface::class);
@@ -20,8 +26,8 @@ class GetArticleQueryTest extends ApplicationTestCase
 
         $result = $this->queryBus->handle($query);
 
-        $this->assertInstanceOf(ArticleViewModel::class, $result);
+        static::assertInstanceOf(ArticleViewModel::class, $result);
         $value = $result->value();
-        $this->assertEquals('article-1', $value['article']['slug']);
+        static::assertSame('article-1', $value['article']['slug']);
     }
 }

@@ -1,16 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Common;
 
-use App\Shared\Application\CQRS\CommandBus;
-use App\Shared\Application\CQRS\QueryBus;
 use JsonSchema\Validator;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
-class PresentationTestCase extends WebTestCase
+abstract class PresentationTestCase extends WebTestCase
 {
     protected KernelBrowser $client;
 
@@ -22,23 +21,25 @@ class PresentationTestCase extends WebTestCase
     /**
      * @param mixed $payload
      */
-    public function sendPost(string $uri, $payload)
+    public function sendPost(string $uri, $payload): void
     {
         $this->client->request(
             Request::METHOD_POST,
             $uri,
             [],
             [],
-            ['CONTENT_TYPE' => 'application/json'],
+            [
+                'CONTENT_TYPE' => 'application/json',
+            ],
             json_encode($payload)
         );
     }
 
-    public function assertJsonMatchSchemaString(string $jsonResponse, string $schema)
+    public function assertJsonMatchSchemaString(string $jsonResponse, string $schema): void
     {
         $validator = new Validator();
         $validator->validate($jsonResponse, json_decode($schema));
 
-        $this->assertTrue($validator->isValid(), print_r($validator->getErrors(), true));
+        static::assertTrue($validator->isValid(), print_r($validator->getErrors(), true));
     }
 }

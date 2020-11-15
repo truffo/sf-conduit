@@ -1,83 +1,84 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\User\Presentation;
 
 use App\Tests\Common\PresentationTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class UseRegisterTest extends PresentationTestCase
+final class UseRegisterTest extends PresentationTestCase
 {
-    public static string $jsonSchemaUserRegister = <<<'JSON'
-{
-  "allOf": [
-    {
-      "$ref": "#/definitions/NewUserRequest"
-    }
-  ],
-  "definitions": {
-    "NewUserRequest": {
-      "type": "object",
-      "properties": {
-        "user": {
-          "$ref": "#/definitions/NewUser"
+    public static string $jsonSchemaUserRegister = <<<'CODE_SAMPLE'
+        {
+          "allOf": [
+            {
+              "$ref": "#/definitions/NewUserRequest"
+            }
+          ],
+          "definitions": {
+            "NewUserRequest": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "$ref": "#/definitions/NewUser"
+                }
+              },
+              "required": [
+                "user"
+              ]
+            },
+            "NewUser": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string",
+                  "format": "password"
+                }
+              },
+              "required": [
+                "username",
+                "email",
+                "password"
+              ]
+            }
+          }
         }
-      },
-      "required": [
-        "user"
-      ]
-    },
-    "NewUser": {
-      "type": "object",
-      "properties": {
-        "username": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string",
-          "format": "password"
-        }
-      },
-      "required": [
-        "username",
-        "email",
-        "password"
-      ]
-    }
-  }
-}
-JSON;
+        CODE_SAMPLE;
 
-    public function testUserRegister()
+    public function testUserRegister(): void
     {
         $this->sendPost('/user/register', [
             'user' => [
                 'username' => 'toto',
                 'email' => 'toto@example.com',
-                'password' => 'password'
-            ]
+                'password' => 'password',
+            ],
         ]);
         $response = $this->client->getResponse();
 
-        $this->assertResponseStatusCodeSame(Response::HTTP_CREATED, $response->getStatusCode());
-        $this->assertJson($response->getContent());
+        $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
+        static::assertJson($response->getContent());
         $this->assertJsonMatchSchemaString($response->getContent(), self::$jsonSchemaUserRegister);
     }
 
-    public function testUserRegisterNoPassword()
+    public function testUserRegisterNoPassword(): void
     {
         $this->sendPost('/user/register', [
             'user' => [
                 'username' => 'toto',
-                'email' => 'toto@example.com'
-            ]
+                'email' => 'toto@example.com',
+            ],
         ]);
         $response = $this->client->getResponse();
 
-        $this->assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY, $response->getStatusCode());
-        $this->assertJson($response->getContent());
-
+        $this->assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
+        static::assertJson($response->getContent());
     }
 }

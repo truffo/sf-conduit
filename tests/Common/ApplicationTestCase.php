@@ -1,12 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Common;
 
 use App\Shared\Application\CQRS\CommandBus;
 use App\Shared\Application\CQRS\QueryBus;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class ApplicationTestCase extends KernelTestCase
+
+abstract class ApplicationTestCase extends KernelTestCase
 {
     protected CommandBus $commandBus;
     protected QueryBus $queryBus;

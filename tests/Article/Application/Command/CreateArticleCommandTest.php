@@ -1,29 +1,30 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Article\Application\Command;
 
 use App\Article\Application\Command\CreateArticleCommand;
 use App\Article\Domain\ArticleRepositoryInterface;
 use App\Tests\Common\ApplicationTestCase;
 
-class CreateArticleCommandTest extends ApplicationTestCase
+/**
+ * @internal
+ * @coversNothing
+ */
+final class CreateArticleCommandTest extends ApplicationTestCase
 {
-    public function testCreateArticle()
+    public function testCreateArticle(): void
     {
         /** @var ArticleRepositoryInterface $repository */
         $repository = self::$container->get(ArticleRepositoryInterface::class);
 
-        $command = CreateArticleCommand::create(
-            'title',
-            'description',
-            'body',
-            ['tag1', 'tag2']
-        );
+        $command = CreateArticleCommand::create('title', 'description', 'body', ['tag1', 'tag2']);
 
         $this->commandBus->dispatch($command);
 
         $article = $repository->findByTitle('title');
-        $this->assertNotEmpty($article->getId());
-        $this->assertEquals('title', $article->getTitle());
+        static::assertNotEmpty($article->getId());
+        static::assertSame('title', $article->getTitle());
     }
 }
