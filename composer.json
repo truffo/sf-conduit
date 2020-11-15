@@ -1,4 +1,6 @@
 {
+    "name": "truffo/sf-conduit",
+    "description": "Description",
     "type": "project",
     "license": "proprietary",
     "require": {
@@ -20,6 +22,7 @@
         "symfony/framework-bundle": "5.1.*",
         "symfony/maker-bundle": "^1.23",
         "symfony/messenger": "5.1.*",
+        "symfony/validator": "5.1.*",
         "symfony/yaml": "5.1.*"
     },
     "require-dev": {
