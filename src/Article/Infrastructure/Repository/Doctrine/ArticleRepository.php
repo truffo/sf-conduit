@@ -26,9 +26,13 @@ final class ArticleRepository extends ServiceEntityRepository implements Article
 
     public function findByTitle(string $title): Article
     {
-        return $this->findOneBy([
+        $result = $this->findOneBy([
             'title' => $title,
         ]);
+        if (null === $result) {
+            throw new \InvalidArgumentException('Unknow article');
+        }
+        return $result;
     }
 
     public function nextId(): ArticleId
@@ -38,15 +42,27 @@ final class ArticleRepository extends ServiceEntityRepository implements Article
 
     public function findByUuid(string $uuid): Article
     {
-        return $this->findOneBy([
+        $result =  $this->findOneBy([
             'id' => $uuid,
         ]);
+
+        if (null === $result) {
+            throw new \InvalidArgumentException('Unknow article');
+        }
+
+        return $result;
     }
 
     public function findBySlug(string $slug): Article
     {
-        return $this->findOneBy([
+        $result = $this->findOneBy([
             'slug' => $slug,
         ]);
+
+        if (null === $result) {
+            throw new \InvalidArgumentException('Unknow article');
+        }
+
+        return $result;
     }
 }

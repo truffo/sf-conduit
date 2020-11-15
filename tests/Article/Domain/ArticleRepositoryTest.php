@@ -28,83 +28,111 @@ class ArticleRepositoryTest extends WebTestCase
     }
 
     /**
-     * @return ArticleRepositoryInterface[]
+     * @return array<class-name>
      */
-    public function articleRepositoryGenerator(): iterable
+    public function articleRepositoryProvider(): array
     {
-        $registry = self::$container->get(ManagerRegistry::class);
-        yield new InMemory\ArticleRepository();
-        yield new Doctrine\ArticleRepository($registry);
+        return [
+            [InMemory\ArticleRepository::class],
+            [Doctrine\ArticleRepository::class]
+        ];
     }
 
-    public function testSave()
+    /**
+     * @dataProvider articleRepositoryProvider
+     */
+    public function testSave($class)
     {
+        $repo = self::$container->get($class);
         $article = ArticleMother::anyWithUuid(ArticleMother::VALID_UUID);
-        foreach ($this->articleRepositoryGenerator() as $repo) {
-            $repo->save($article);
-            $result = $repo->findByUuid(ArticleMother::VALID_UUID);
-            $this->assertSame($article, $result);
-        }
+
+        $repo->save($article);
+        $result = $repo->findByUuid(ArticleMother::VALID_UUID);
+        $this->assertSame($article, $result);
     }
 
-    public function testNextId()
+    /**
+     * @dataProvider articleRepositoryProvider
+     */
+    public function testNextId($class)
     {
-        foreach ($this->articleRepositoryGenerator() as $repo) {
-            $this->assertTrue((new Validator())->validate($repo->nextId()->value()));
-        }
+        $repo = self::$container->get($class);
+
+        $this->assertTrue((new Validator())->validate($repo->nextId()->value()));
     }
 
-    public function testFindByTitle()
+    /**
+     * @dataProvider articleRepositoryProvider
+     */
+    public function testFindByTitle($class)
     {
+        $repo = self::$container->get($class);
+
         $article = ArticleMother::anyWithUuid(ArticleMother::VALID_UUID);
-        foreach ($this->articleRepositoryGenerator() as $repo) {
-            $repo->save($article);
-            $result = $repo->findByTitle(ArticleMother::TITLE);
-            $this->assertSame($article, $result);
-        }
+        $repo->save($article);
+        $result = $repo->findByTitle(ArticleMother::TITLE);
+        $this->assertSame($article, $result);
     }
 
-    public function testFindByTitleNonExistantTitle()
+    /**
+     * @dataProvider articleRepositoryProvider
+     */
+    public function testFindByTitleNonExistantTitle($class)
     {
-        foreach ($this->articleRepositoryGenerator() as $repo) {
-            $this->expectException(\InvalidArgumentException::class);
-            $repo->findByTitle('Non existent title');
-        }
+        $repo = self::$container->get($class);
+
+        $this->expectException(\InvalidArgumentException::class);
+        $repo->findByTitle('Non existent title');
     }
 
-    public function testFindBySlug()
+
+    /**
+     * @dataProvider articleRepositoryProvider
+     */
+    public function testFindBySlug($class)
     {
+        $repo = self::$container->get($class);
+
         $article = ArticleMother::anyWithUuid(ArticleMother::VALID_UUID);
-        foreach ($this->articleRepositoryGenerator() as $repo) {
-            $repo->save($article);
-            $result = $repo->findBySlug('article-1');
-            $this->assertSame($article, $result);
-        }
+        $repo->save($article);
+        $result = $repo->findBySlug('article-1');
+        $this->assertSame($article, $result);
     }
 
-    public function testFindBySlugNonExistantSlug()
+
+    /**
+     * @dataProvider articleRepositoryProvider
+     */
+    public function testFindBySlugNonExistantSlug($class)
     {
-        foreach ($this->articleRepositoryGenerator() as $repo) {
-            $this->expectException(\InvalidArgumentException::class);
-            $repo->findBySlug('Non existent slug');
-        }
+        $repo = self::$container->get($class);
+
+        $this->expectException(\InvalidArgumentException::class);
+        $repo->findBySlug('Non existent slug');
     }
 
-    public function testFindByUuid()
+
+    /**
+     * @dataProvider articleRepositoryProvider
+     */
+    public function testFindByUuid($class)
     {
+        $repo = self::$container->get($class);
+
         $article = ArticleMother::anyWithUuid(ArticleMother::VALID_UUID);
-        foreach ($this->articleRepositoryGenerator() as $repo) {
-            $repo->save($article);
-            $result = $repo->findByUuid(ArticleMother::VALID_UUID);
-            $this->assertSame($article, $result);
-        }
+        $repo->save($article);
+        $result = $repo->findByUuid(ArticleMother::VALID_UUID);
+        $this->assertSame($article, $result);
     }
 
-    public function testFindByUuidNonExistantUuid()
+    /**
+     * @dataProvider articleRepositoryProvider
+     */
+    public function testFindByUuidNonExistantUuid($class)
     {
-        foreach ($this->articleRepositoryGenerator() as $repo) {
-            $this->expectException(\InvalidArgumentException::class);
-            $repo->findByUuid(Uuid::uuid4()->toString());
-        }
+        $repo = self::$container->get($class);
+
+        $this->expectException(\InvalidArgumentException::class);
+        $repo->findByUuid(Uuid::uuid4()->toString());
     }
 }
