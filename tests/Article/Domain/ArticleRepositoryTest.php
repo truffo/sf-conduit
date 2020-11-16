@@ -31,7 +31,10 @@ final class ArticleRepositoryTest extends WebTestCase
      */
     public function articleRepositoryProvider(): array
     {
-        return [[InMemory\ArticleRepository::class], [Doctrine\ArticleRepository::class]];
+        return [
+            [InMemory\ArticleRepository::class],
+            [Doctrine\ArticleRepository::class]
+        ];
     }
 
     /**

@@ -8,10 +8,6 @@ use App\Article\Application\Command\CreateArticleCommand;
 use App\Article\Domain\ArticleRepositoryInterface;
 use App\Tests\Common\ApplicationTestCase;
 
-/**
- * @internal
- * @coversNothing
- */
 final class CreateArticleCommandTest extends ApplicationTestCase
 {
     public function testCreateArticle(): void

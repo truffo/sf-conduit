@@ -10,10 +10,6 @@ use App\Article\Domain\ArticleRepositoryInterface;
 use App\Tests\Common\ApplicationTestCase;
 use App\Tests\ObjectMother\ArticleMother;
 
-/**
- * @internal
- * @coversNothing
- */
 final class GetArticleQueryTest extends ApplicationTestCase
 {
     public function testGetArticle(): void

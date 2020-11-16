@@ -9,10 +9,6 @@ use App\Article\Domain\ArticleId;
 use App\Tests\ObjectMother\ArticleMother;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-/**
- * @internal
- * @coversNothing
- */
 final class ArticleTest extends WebTestCase
 {
     public function testArticleSlug(): void

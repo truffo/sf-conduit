@@ -7,10 +7,6 @@ namespace App\Tests\Article\Presentation;
 use Helmich\JsonAssert\JsonAssertions;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-/**
- * @internal
- * @coversNothing
- */
 final class ArticleGetTest extends WebTestCase
 {
     use JsonAssertions;
