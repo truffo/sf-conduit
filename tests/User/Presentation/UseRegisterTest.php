@@ -10,47 +10,54 @@ use Symfony\Component\HttpFoundation\Response;
 final class UseRegisterTest extends PresentationTestCase
 {
     public static string $jsonSchemaUserRegister = <<<'CODE_SAMPLE'
-        {
-          "allOf": [
+    {
+        "allOf": [
             {
-              "$ref": "#/definitions/NewUserRequest"
+                "$ref": "#/definitions/UserResponse"
             }
-          ],
-          "definitions": {
-            "NewUserRequest": {
-              "type": "object",
-              "properties": {
-                "user": {
-                  "$ref": "#/definitions/NewUser"
-                }
-              },
-              "required": [
-                "user"
-              ]
+        ],
+        "definitions": {
+            "UserResponse": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                      "$ref": "#/definitions/User"
+                    }
+                },
+                "required": [
+                    "user"
+                ]
             },
-            "NewUser": {
-              "type": "object",
-              "properties": {
-                "username": {
-                  "type": "string"
+            "User": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "token": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "bio": {
+                      "type": "string"
+                    },
+                    "image": {
+                      "type": "string"
+                    }
                 },
-                "email": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "string",
-                  "format": "password"
-                }
-              },
-              "required": [
-                "username",
-                "email",
-                "password"
-              ]
+                "required": [
+                    "email",
+                    "token",
+                    "username",
+                    "bio",
+                    "image"
+                ]
             }
-          }
         }
-        CODE_SAMPLE;
+    }
+    CODE_SAMPLE;
 
     public function testUserRegister(): void
     {
@@ -68,6 +75,7 @@ final class UseRegisterTest extends PresentationTestCase
         $this->assertJsonMatchSchemaString($response->getContent(), self::$jsonSchemaUserRegister);
     }
 
+
     public function testUserRegisterNoPassword(): void
     {
         $this->sendPost('/user/register', [
@@ -81,4 +89,5 @@ final class UseRegisterTest extends PresentationTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
         static::assertJson($response->getContent());
     }
+
 }
