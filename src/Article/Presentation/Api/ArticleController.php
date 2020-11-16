@@ -8,16 +8,12 @@ use App\Article\Application\Command\CreateArticleCommand;
 use App\Article\Domain\ArticleRepositoryInterface;
 use App\Shared\Application\CQRS\CommandBus;
 use App\Shared\Application\CQRS\QueryBus;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Shared\Presentation\AbstractApiController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ArticleController extends AbstractController
+class ArticleController extends AbstractApiController
 {
-    private CommandBus $commandBus;
-
-    private QueryBus $queryBus;
-
     private ArticleRepositoryInterface $articleRepository;
 
     public function __construct(
@@ -25,8 +21,8 @@ class ArticleController extends AbstractController
         QueryBus $queryBus,
         ArticleRepositoryInterface $articleRepository
     ) {
-        $this->commandBus = $commandBus;
-        $this->queryBus = $queryBus;
+        parent::__construct($commandBus, $queryBus);
+
         $this->articleRepository = $articleRepository;
     }
 
