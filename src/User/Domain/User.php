@@ -12,6 +12,8 @@ class User implements UserInterface
     private string $username;
     private string $email;
     private string $password;
+    private string $apiToken;
+
     /**
      * @var array<string>
      */
