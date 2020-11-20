@@ -9,4 +9,6 @@ interface UserRepositoryInterface
     public function nextId(): UserId;
 
     public function register(User $user): void;
+
+    public function findByUsername(string $username): User;
 }

@@ -14,12 +14,18 @@ final class UserRegisterCommandTest extends ApplicationTestCase
 {
     public function testUserRegister(): void
     {
-        /*
         $repository = self::$container->get(UserRepositoryInterface::class);
 
-        $command = UserRegisterCommand::create('title', 'description', 'body', ['tag1', 'tag2']);
+        $command = new UserRegisterCommand(
+            'admin',
+            'password',
+            'admin@superproject.com'
+        );
 
         $this->commandBus->dispatch($command);
-        */
+
+        $user = $repository->findByUsername('admin');
+        static::assertNotEmpty($user->getId());
+        static::assertSame('admin@superproject.com', $user->getEmail());
     }
 }

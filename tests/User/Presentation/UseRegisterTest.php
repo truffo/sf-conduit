@@ -70,9 +70,9 @@ final class UseRegisterTest extends PresentationTestCase
         ]);
         $response = $this->client->getResponse();
 
-        $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
+        static::assertResponseStatusCodeSame(Response::HTTP_CREATED);
         static::assertJson($response->getContent());
-        $this->assertJsonMatchSchemaString($response->getContent(), self::$jsonSchemaUserRegister);
+        static::assertJsonMatchSchemaString($response->getContent(), self::$jsonSchemaUserRegister);
     }
 
 
@@ -86,7 +86,7 @@ final class UseRegisterTest extends PresentationTestCase
         ]);
         $response = $this->client->getResponse();
 
-        $this->assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
+        static::assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
         static::assertJson($response->getContent());
     }
 

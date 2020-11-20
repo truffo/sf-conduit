@@ -35,7 +35,7 @@ abstract class PresentationTestCase extends WebTestCase
         );
     }
 
-    public function assertJsonMatchSchemaString(string $jsonResponse, string $schema): void
+    public static function assertJsonMatchSchemaString(string $jsonResponse, string $schema): void
     {
         $validator = new Validator();
         $validator->validate($jsonResponse, $schema);

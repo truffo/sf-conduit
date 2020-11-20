@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\User\Infrastructure\Repository\InMemory;
 
+use App\Article\Domain\Article;
 use App\User\Domain\User;
 use App\User\Domain\UserId;
 use App\User\Domain\UserRepositoryInterface;
@@ -27,5 +28,15 @@ class UserRepository implements UserRepositoryInterface
     public function register(User $user): void
     {
         $this->data->add($user);
+    }
+
+    public function findByUsername(string $username): User
+    {
+        $result = $this->data->filter(fn (User $user) => $user->getUsername() === $username);
+        if (0 === $result->count()) {
+            throw new \InvalidArgumentException();
+        }
+
+        return $result->first();
     }
 }

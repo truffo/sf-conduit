@@ -25,6 +25,11 @@ class User implements UserInterface
         $this->password = $password;
     }
 
+    public function getId(): UserId
+    {
+        return $this->id;
+    }
+
     /**
      * Returns the roles granted to the user.
      *

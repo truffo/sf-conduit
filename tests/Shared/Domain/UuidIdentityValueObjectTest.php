@@ -48,6 +48,6 @@ final class UuidIdentityValueObjectTest extends TestCase
 
         static::assertTrue($vo1->equals($vo2));
         static::assertTrue($vo2->equals($vo1));
-        static::assertSame($vo2, $vo1);
+        static::assertEquals($vo2, $vo1);
     }
 }
