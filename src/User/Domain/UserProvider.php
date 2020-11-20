@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\User\Domain;
 
@@ -27,6 +28,6 @@ class UserProvider implements UserProviderInterface
 
     public function supportsClass(string $class)
     {
-       return User::class;
+        return User::class;
     }
 }

@@ -42,7 +42,7 @@ class UserController extends AbstractApiController
                 'token' => 'token',
                 'bio' => 'bio',
                 'image' => 'image',
-            ]
+            ],
         ], Response::HTTP_CREATED);
     }
 }
