@@ -31,6 +31,5 @@ final class UserRegisterCommandTest extends ApplicationTestCase
         static::assertSame('admin', $user->getUsername());
         static::assertSame('admin@superproject.com', $user->getEmail());
         static::assertContains('ROLE_USER', $user->getRoles());
-        static::assertNotEquals('password', $user->getPassword());
     }
 }
