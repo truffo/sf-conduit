@@ -61,7 +61,7 @@ final class UseRegisterTest extends PresentationTestCase
 
     public function testUserRegister(): void
     {
-        $this->sendPost('/user/register', [
+        $this->sendPost('/users', [
             'user' => [
                 'username' => 'toto',
                 'email' => 'toto@example.com',
@@ -78,7 +78,7 @@ final class UseRegisterTest extends PresentationTestCase
 
     public function testUserRegisterNoPassword(): void
     {
-        $this->sendPost('/user/register', [
+        $this->sendPost('/users', [
             'user' => [
                 'username' => 'toto',
                 'email' => 'toto@example.com',

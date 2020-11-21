@@ -6,6 +6,7 @@ namespace App\User\Presentation\Api;
 
 use App\Shared\Presentation\AbstractApiController;
 use App\User\Application\Command\UserRegisterCommand;
+use App\User\Application\Query\FindByUsernameQuery;
 use InvalidArgumentException;
 use Nette\Utils\Json;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,9 +18,9 @@ use Webmozart\Assert\Assert;
 class UserController extends AbstractApiController
 {
     /**
-     * @Route("/user/register", name="user_register", methods={"POST"})
+     * @Route("/users", name="user_register", methods={"POST"})
      */
-    public function index(Request $request): Response
+    public function register(Request $request): Response
     {
         try {
             $data = Json::decode($request->getContent());
@@ -31,20 +32,15 @@ class UserController extends AbstractApiController
             Assert::propertyExists($user, 'username');
             Assert::email($user->email);
 
-            $this->commandBus->dispatch(new UserRegisterCommand($user->username, $user->password, $user->email));
+            $command = new UserRegisterCommand($user->username, $user->password, $user->email);
+            $this->commandBus->dispatch($command);
+
+            $viewModel = $this->queryBus->handle(new FindByUsernameQuery($user->username));
         } catch (InvalidArgumentException $exception) {
             return $this->json([], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        return $this->json([
-            'user' => [
-                'username' => 'string',
-                'email' => 'email@toto.com',
-                'token' => 'token',
-                'bio' => 'bio',
-                'image' => 'image',
-            ],
-        ], Response::HTTP_CREATED);
+        return $this->json($viewModel->value(), Response::HTTP_CREATED);
     }
 
     /**
