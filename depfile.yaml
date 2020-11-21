@@ -1,0 +1,84 @@
+paths:
+    - ./src
+exclude_files:
+    - .*test.*
+layers:
+    - name: Domain
+      collectors:
+          - type: bool
+            must:
+                - type: className
+                  regex: .*App\\[a-zA-Z0-9]*\\Domain\\.*
+                - type: directory
+                  regex: src/
+    - name: Infrastructure
+      collectors:
+          - type: bool
+            must:
+                - type: className
+                  regex: .*App\\[a-zA-Z0-9]*\\Infrastructure\\.*
+                - type: directory
+                  regex: src/
+    - name: Presentation
+      collectors:
+          - type: bool
+            must:
+                - type: className
+                  regex: .*App\\[a-zA-Z0-9]*\\Presentation\\.*
+                - type: directory
+                  regex: src/
+    - name: Application
+      collectors:
+          - type: bool
+            must:
+                - type: className
+                  regex: .*App\\[a-zA-Z0-9]*\\App\\.*
+                - type: directory
+                  regex: src/
+            must_not:
+                - type: className
+                  regex: .*App\\[a-zA-Z0-9]*\\Application\\Command.*
+                - type: className
+                  regex: .*App\\[a-zA-Z0-9]*\\Application\\Query.*
+    - name: CommandQuery
+      collectors:
+          - type: bool
+            must:
+                - type: className
+                  regex: .*App\\[a-zA-Z0-9]*\\Application\\[Command|Query].*
+                - type: directory
+                  regex: src/
+    - name: Doctrine
+      collectors:
+          - type: bool
+            must:
+                - type: className
+                  regex: \\Doctrine\\.*
+            must_not:
+                - type: className
+                  regex: .*App\\.*
+                - type: className
+                  regex: \\Doctrine\\Form\\Type\\.*
+    - name: Http
+      collectors:
+          - type: className
+            regex: .*Symfony\\Component\\HttpFoundation\\[Request|Response].*
+ruleset:
+    Application:
+        - Domain
+        - CommandQuery
+    Presentation:
+        - Domain
+        - Application
+        - Http
+        - CommandQuery
+    Domain:
+        - CommandQuery
+    Infrastructure:
+        - Domain
+        - Application
+        - Doctrine
+        - CommandQuery
+    CommandQuery:
+        - Application
+        - Domain

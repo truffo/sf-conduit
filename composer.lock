@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b731825ee625943fb1b85beec732970",
+    "content-hash": "59dc5952a7e8ae098f282031a1109330",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -7047,6 +7047,51 @@
                 }
             ],
             "time": "2020-10-26T13:10:38+00:00"
+        },
+        {
+            "name": "sensiolabs-de/deptrac-shim",
+            "version": "0.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sensiolabs-de/deptrac-shim.git",
+                "reference": "103d48dc443aa724e09a2f88f4bf1964038d77ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sensiolabs-de/deptrac-shim/zipball/103d48dc443aa724e09a2f88f4bf1964038d77ea",
+                "reference": "103d48dc443aa724e09a2f88f4bf1964038d77ea",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-tokenizer": "*",
+                "ext-zlib": "*",
+                "php": "^7.2 || 8.0.*"
+            },
+            "replace": {
+                "sensiolabs-de/astrunner": "^1.0",
+                "sensiolabs-de/deptrac": "self.version"
+            },
+            "suggest": {
+                "ext-dom": "For using the JUnit output formatter"
+            },
+            "bin": [
+                "deptrac"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Simon Mönch",
+                    "email": "simon.moench@sensiolabs.de",
+                    "role": "maintainer"
+                }
+            ],
+            "description": "deptrac phar distribution",
+            "time": "2020-11-20T15:59:05+00:00"
         },
         {
             "name": "slevomat/coding-standard",
