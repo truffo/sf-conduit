@@ -14,10 +14,7 @@ use Ramsey\Uuid\Rfc4122\Validator;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-/**
- * @internal
- * @coversNothing
- */
+
 final class ArticleRepositoryTest extends WebTestCase
 {
     protected function setUp(): void

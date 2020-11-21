@@ -19,12 +19,11 @@ class User implements UserInterface
      */
     private array $roles = [];
 
-    public function __construct(UserId $userId, string $username, string $email, string $password)
+    public function __construct(UserId $userId, string $username, string $email)
     {
         $this->id = $userId;
         $this->username = $username;
         $this->email = $email;
-        $this->password = $password;
     }
 
     public function getId(): UserId
@@ -119,5 +118,15 @@ class User implements UserInterface
     public function getEmail(): string
     {
         return $this->email;
+    }
+
+    public function setToken(string $token): void
+    {
+        $this->apiToken = $token;
+    }
+
+    public function getToken(): string
+    {
+        return $this->apiToken;
     }
 }

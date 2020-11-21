@@ -9,10 +9,6 @@ use Assert\InvalidArgumentException;
 use Faker\Factory;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- * @coversNothing
- */
 final class UuidIdentityValueObjectTest extends TestCase
 {
     public function testConstruct(): void

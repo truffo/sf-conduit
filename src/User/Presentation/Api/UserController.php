@@ -11,6 +11,7 @@ use Nette\Utils\Json;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Webmozart\Assert\Assert;
 
 class UserController extends AbstractApiController
@@ -44,5 +45,15 @@ class UserController extends AbstractApiController
                 'image' => 'image',
             ],
         ], Response::HTTP_CREATED);
+    }
+
+    /**
+     * @Route("/users/login", name="user_login", methods={"POST"})
+     */
+    public function login(Request $request, AuthenticationUtils $authenticationUtils): Response
+    {
+
+
+        return $this->json([]);
     }
 }

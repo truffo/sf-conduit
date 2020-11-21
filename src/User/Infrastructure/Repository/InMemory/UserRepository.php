@@ -38,4 +38,14 @@ class UserRepository implements UserRepositoryInterface
 
         return $result->first();
     }
+
+    public function findByToken(string $token): User
+    {
+        $result = $this->data->filter(fn (User $user) => $user->getToken() === $token);
+        if (0 === $result->count()) {
+            throw new \InvalidArgumentException();
+        }
+
+        return $result->first();
+    }
 }

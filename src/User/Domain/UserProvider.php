@@ -16,9 +16,9 @@ class UserProvider implements UserProviderInterface
         $this->repository = $repository;
     }
 
-    public function loadUserByUsername(string $username)
+    public function loadUserByUsername(string $token)
     {
-        return $this->repository->findByUsername($username);
+        return $this->repository->findByToken($token);
     }
 
     public function refreshUser(UserInterface $user)

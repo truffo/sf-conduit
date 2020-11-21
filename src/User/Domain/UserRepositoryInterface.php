@@ -11,4 +11,6 @@ interface UserRepositoryInterface
     public function register(User $user): void;
 
     public function findByUsername(string $username): User;
+
+    public function findByToken(string $token): User;
 }
